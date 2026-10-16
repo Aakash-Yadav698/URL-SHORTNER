@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EventHub - Event Registration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap bar">
+      <a class="brand" href="#events">Event<span>Hub</span></a>
+      <nav>
+        <button class="tab active" data-view="events">Events</button>
+        <button class="tab" data-view="mine">My Registrations</button>
+        <button class="tab" data-view="organizer">Organizer</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- EVENTS -->
+    <section id="view-events" class="view">
+      <h1>Upcoming events</h1>
+      <p class="sub">Browse events and reserve your seat.</p>
+      <div id="events" class="grid"></div>
+    </section>
+
+    <!-- MY REGISTRATIONS -->
+    <section id="view-mine" class="view" hidden>
+      <h1>My registrations</h1>
+      <p class="sub">Enter the email you registered with to view or cancel.</p>
+      <form id="lookup" class="inline">
+        <input type="email" id="lookupEmail" placeholder="you@example.com" required>
+        <button class="btn" type="submit">Find</button>
+      </form>
+      <div id="mine" class="list"></div>
+    </section>
+
+    <!-- ORGANIZER -->
+    <section id="view-organizer" class="view" hidden>
+      <div id="loginBox">
+        <h1>Organizer login</h1>
+        <p class="sub">Default password is <code>admin123</code> (change it in <code>.env</code>).</p>
+        <form id="loginForm" class="inline">
+          <input type="password" id="adminPass" placeholder="Organizer password" required>
+          <button class="btn" type="submit">Log in</button>
+        </form>
+      </div>
+      <div id="adminBox" hidden>
+        <div class="row-between">
+          <h1>Organizer panel</h1>
+          <button class="btn ghost" id="logout">Log out</button>
+        </div>
+        <form id="eventForm" class="card form">
+          <h2>Create event</h2>
+          <label>Title <input name="title" required></label>
+          <label>Description <textarea name="description" rows="3"></textarea></label>
+          <label>Location <input name="location" required></label>
+          <div class="two">
+            <label>Date &amp; time <input type="datetime-local" name="eventDateTime" required></label>
+            <label>Capacity <input type="number" name="capacity" min="1" value="50" required></label>
+          </div>
+          <button class="btn" type="submit">Create event</button>
+        </form>
+        <h2>Manage events</h2>
+        <div id="adminEvents" class="list"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Register modal -->
+  <dialog id="regDialog">
+    <form id="regForm" method="dialog" class="form">
+      <h2 id="regTitle">Register</h2>
+      <label>Full name <input name="userName" required></label>
+      <label>Email <input type="email" name="userEmail" required></label>
+      <div class="row-end">
+        <button type="button" class="btn ghost" id="regCancel">Close</button>
+        <button type="submit" class="btn">Confirm registration</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Attendees modal -->
+  <dialog id="attDialog">
+    <div class="form">
+      <h2 id="attTitle">Attendees</h2>
+      <div id="attList" class="list"></div>
+      <div class="row-end"><button class="btn ghost" id="attClose">Close</button></div>
+    </div>
+  </dialog>
+
+  <div id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
